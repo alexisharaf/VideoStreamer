@@ -1,0 +1,7 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/Player/Player.csproj" />
+    <Project Path="src/Streamer/Streamer.csproj" />
+    <Project Path="src/StreamingPlayerLib/StreamingPlayerLib.csproj" />
+  </Folder>
+</Solution>
