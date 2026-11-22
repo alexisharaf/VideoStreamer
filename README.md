@@ -1,16 +1,18 @@
-# Видеостример с веб-камеры (C# / .NET 10, Windows)
+# Видеостример с веб-камеры (C# / .NET 10)
 
-Решение из двух частей:
+Решение состоит из:
 - **Streamer** (`src/Streamer`) — консольное приложение: захватывает видео с веб-камеры и звук с микрофона и передаёт их по сети (TCP).
-- **Player** (`src/Player`) — отдельное приложение-плеер (WinForms) для просмотра потока.
+- **Player** (`src/Player`) — исходный плеер (WinForms, только Windows). Оставлен без изменений.
+- **MauiPlayer** (`src/MauiPlayer`) — новый плеер на .NET MAUI для Android и Windows: видео + звук из того же потока.
 - **StreamingPlayerLib** (`src/StreamingPlayerLib`) — библиотека с переиспользуемым WinForms-компонентом `StreamingPlayerLib.VideoPlayerControl`, который принимает и воспроизводит поток. Его можно встроить в другие программы (например, в SCADA/WinCC-хост на WinForms).
 
 Протокол: TCP, заголовок `VS1\0`, далее пакеты `[тип:1 байт][длина:4][данные]` — JPEG-кадры (видео) и PCM16 (аудио) в одном соединении. Порт по умолчанию: `5000`.
 
 ## Требования
 
-- Windows (захват камеры/микрофона через DirectShow, воспроизведение аудио через WaveOut).
+- Windows (захват камеры/микрофона через DirectShow, воспроизведение аудио через WaveOut) — только для Streamer и старого Player.
 - .NET 10 SDK для сборки.
+- Для MauiPlayer: workload `maui-android` и/или `maui-windows` (`dotnet workload install maui-android maui-windows`).
 - Веб-камера и (опционально) микрофон на машине стримера.
 - Сеть между машинами (открыт TCP-порт).
 
@@ -22,19 +24,31 @@ src/
   StreamingPlayerLib/   # библиотека: StreamProtocol.cs, VideoPlayerControl.cs
   Streamer/             # консольный стример (камера+микрофон -> TCP)
   Player/               # WinForms-плеер, использует VideoPlayerControl
+  MauiPlayer/           # MAUI-плеер для Android и Windows
 ```
 
 ## Сборка
+
+Для сборки всего решения нужны workload MAUI (см. выше); без них собирайте `Streamer`, `Player` и `StreamingPlayerLib` по отдельности.
 
 ```powershell
 dotnet restore VideoStreaming.slnx
 dotnet build VideoStreaming.slnx -c Release
 ```
 
+Отдельно MAUI-плеер (нужны соответствующие workload):
+
+```powershell
+dotnet build src/MauiPlayer/MauiPlayer.csproj -c Release -f net10.0-android
+dotnet build src/MauiPlayer/MauiPlayer.csproj -c Release -f net10.0-windows10.0.19041.0
+```
+
 Артефакты:
 - `src/Streamer/bin/Release/net10.0-windows/Streamer.exe`
 - `src/Player/bin/Release/net10.0-windows/Player.exe`
 - `src/StreamingPlayerLib/bin/Release/net10.0-windows/StreamingPlayerLib.dll`
+- `src/MauiPlayer/bin/Release/net10.0-android/.../MauiPlayer.apk`
+- `src/MauiPlayer/bin/Release/net10.0-windows10.0.19041.0/.../MauiPlayer.exe`
 
 ## Запуск стримера (машина с камерой)
 
@@ -70,6 +84,14 @@ Streamer.exe 5000 0 -1       # только видео
 3. Нажмите **Connect**. Статус и формат потока отображаются в панели. Повторное нажатие — отключение.
 
 Плеер — тонкая оболочка над компонентом `VideoPlayerControl` из `StreamingPlayerLib`.
+
+## Запуск MAUI-плеера (Android / Windows)
+
+1. Установите и запустите приложение `MauiPlayer` на устройстве/эмуляторе Android или под Windows.
+2. Укажите те же `Host` и `Port`, что и для старого плеера, и нажмите **Connect**.
+3. Повторное нажатие отключает поток. Статус и формат потока показываются рядом.
+
+Видео выводится через `Image` с MJPEG-кадрами (15 FPS), звук — через `AudioTrack` на Android и NAudio/WaveOut на Windows. Константы протокола (`src/StreamingPlayerLib/StreamProtocol.cs`) подключены в проект напрямую, чтобы старый плеер остался неизменным.
 
 ## Встраивание компонента в другое WinForms-приложение (например, WinCC)
 
