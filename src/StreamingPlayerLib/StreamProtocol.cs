@@ -8,7 +8,7 @@ public static class StreamProtocol
 
     public const int DefaultPort = 5000;
     public const int VideoFps = 15;
-    public const int JpegQuality = 70;
+    public const int JpegQuality = 25;
     public const int AudioSampleRate = 16000;
     public const int AudioChannels = 1;
     public const int AudioBits = 16;
