@@ -97,9 +97,9 @@ public sealed class PlayerPage : ContentPage
     private void OnPaintSurface(object? sender, SKPaintGLSurfaceEventArgs e)
     {
         var canvas = e.Surface.Canvas;
-        canvas.Clear(SKColors.Black);
+        //canvas.Clear(SKColors.Black);
 
-        SKBitmap? bitmapToDraw = null;
+        //SKBitmap? bitmapToDraw = null;
         lock (_bitmapLock)
         {
             if (_currentBitmap != null)
@@ -124,7 +124,8 @@ public sealed class PlayerPage : ContentPage
         float top = (viewHeight - destHeight) / 2f;
 
         var destRect = new SKRect(left, top, left + destWidth, top + destHeight);
-        canvas.DrawBitmap(bitmap, destRect, new SKSamplingOptions(SKFilterMode.Linear));
+       // canvas.DrawBitmap(bitmap, destRect, new SKSamplingOptions(SKFilterMode.Linear));
+        canvas.DrawBitmap(bitmap, destRect, new SKSamplingOptions(SKFilterMode.Nearest));
     }
 
     private void ClearFrame()
