@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Видеостример с веб-камеры (C# / .NET 10)
 
 Решение состоит из:
@@ -136,4 +135,4 @@ view.Disconnect();
 =======
 # VideoStreamer
 Stream video from one computer to other
->>>>>>> 4efeb924208a124831fbea3104b4d40c20e109bb
+
