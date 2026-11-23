@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Видеостример с веб-камеры (C# / .NET 10)
 
 Решение состоит из:
@@ -132,3 +133,7 @@ view.Disconnect();
 - Рассчитано на LAN: без шифрования и аутентификации.
 - Формат фиксированный (MJPEG + PCM16 16 kHz mono), синхронизация аудио/видео best-effort (возможен небольшой дрейф).
 - Требуется DirectShow-совместимая камера/микрофон на Windows. Для захвата используется `OpenCvSharp4` + `OpenCvSharp4.runtime.win`.
+=======
+# VideoStreamer
+Stream video from one computer to other
+>>>>>>> 4efeb924208a124831fbea3104b4d40c20e109bb
