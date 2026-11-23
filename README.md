@@ -51,7 +51,7 @@ dotnet build src/MauiPlayer/MauiPlayer.csproj -c Release -f net10.0-windows10.0.
 - `src/MauiPlayer/bin/Release/net10.0-android/.../MauiPlayer.apk`
 - `src/MauiPlayer/bin/Release/net10.0-windows10.0.19041.0/.../MauiPlayer.exe`
 
-## Запуск стримера (машина с камерой)
+## Запуск стримера (компьютер с камерой)
 
 ```powershell
 Streamer.exe [порт] [индекс_камеры] [индекс_микрофона|-1]
@@ -78,7 +78,7 @@ Streamer.exe 5000 0 -1       # только видео
 
 > На машине стримера разрешите входящие подключения к выбранному порту в брандмауэре Windows.
 
-## Запуск плеера (машина просмотра)
+## Запуск плеера (компьютер просмотра)
 
 1. Запустите `Player.exe`.
 2. Укажите `Host` (IP/имя машины со стримером) и `Port` (по умолчанию `5000`).
