@@ -124,7 +124,8 @@ view.Disconnect();
 
 ## Настройка формата потока
 
-Константы — в `src/StreamingPlayerLib/StreamProtocol.cs`: `DefaultPort` (5000), `VideoFps` (15), `JpegQuality` (70), `AudioSampleRate` (16000), `AudioChannels` (1), `AudioBits` (16). При изменении пересоберите стример и все клиенты/библиотеки одинаково.
+Константы — в `src/StreamingPlayerLib/StreamProtocol.cs`: `DefaultPort` (5000), `VideoFps` (15), `JpegQuality` (50), `AudioSampleRate` (16000), `AudioChannels` (1), `AudioBits` (16). 
+При изменении пересоберите стример и все клиенты/библиотеки.
 
 ## Ограничения
 
@@ -132,7 +133,7 @@ view.Disconnect();
 - Рассчитано на LAN: без шифрования и аутентификации.
 - Формат фиксированный (MJPEG + PCM16 16 kHz mono), синхронизация аудио/видео best-effort (возможен небольшой дрейф).
 - Требуется DirectShow-совместимая камера/микрофон на Windows. Для захвата используется `OpenCvSharp4` + `OpenCvSharp4.runtime.win`.
-=======
+
 # VideoStreamer
 Stream video from one computer to other
 
