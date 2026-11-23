@@ -10,7 +10,7 @@
 
 ## Требования
 
-- Windows (захват камеры/микрофона через DirectShow, воспроизведение аудио через WaveOut) — только для Streamer и старого Player.
+- Windows (захват камеры/микрофона через DirectShow, воспроизведение аудио через WaveOut) — только для Streamer и winforms Player.
 - .NET 10 SDK для сборки.
 - Для MauiPlayer: workload `maui-android` и/или `maui-windows` (`dotnet workload install maui-android maui-windows`).
 - Веб-камера и (опционально) микрофон на машине стримера.
